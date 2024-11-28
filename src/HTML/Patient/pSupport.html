@@ -4,52 +4,89 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patient Support Screen</title>
+    <script type="module">
+        import TherapistMatcher from "../../JS/therapistMatcher.js";
+  
+        document.addEventListener("DOMContentLoaded", () => {
+          const supportForm = document.getElementById("supportForm");
+          const matchResultsContainer = document.getElementById("matchResults");
+  
+          supportForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+  
+            const stressLevel = document.getElementById("stressRange").value;
+            const traumaImpact = document.getElementById("traumaRange").value;
+            const discomfortLevel =
+              document.getElementById("discomfortRange").value;
+            const additionalMessage =
+              document.getElementById("additionalMessage").value;
+  
+            try {
+              await TherapistMatcher.savePatientSupportInput(
+                stressLevel,
+                traumaImpact,
+                discomfortLevel,
+                additionalMessage
+              );
+  
+              const matchedTherapists =
+                await TherapistMatcher.findBestTherapists();
+  
+              matchResultsContainer.innerHTML = "<h3>Recommended Therapists</h3>";
+              matchedTherapists.forEach((therapist) => {
+                const therapistCard = document.createElement("div");
+                therapistCard.innerHTML = `
+                            <p>Name: ${therapist.name}</p>
+                            <p>Expertise: ${therapist.expertise}</p>
+                            <p>Match Score: ${(
+                              therapist.matchScore * 100
+                            ).toFixed(2)}%</p>
+                            <button onclick="requestSession('${
+                              therapist.id
+                            }')">Request Session</button>
+                        `;
+                matchResultsContainer.appendChild(therapistCard);
+              });
+            } catch (error) {
+              console.error("Matchmaking failed:", error);
+              matchResultsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+          });
+  
+          window.requestSession = async (therapistId) => {
+            try {
+              await TherapistMatcher.requestTherapySession(therapistId);
+              alert("Therapy session request sent successfully!");
+            } catch (error) {
+              alert("Failed to request session: " + error.message);
+            }
+          };
+        });
+      </script>
   </head>
   <body>
     <div>
       <h2>Could you try to define your problem?</h2>
-      <div class="slidecontainer">
-        Stress Level:
-        <input
-          type="range"
-          min="1"
-          max="100"
-          value="50"
-          class="slider"
-          id="stresRange"
-        />
-      </div>
-      <div class="slidecontainer">
-        Trauma Impact:
-        <input
-          type="range"
-          min="1"
-          max="100"
-          value="50"
-          class="slider"
-          id="traumaRange"
-        />
-      </div>
-      <div class="slidecontainer">
-        Discomfort:
-        <input
-          type="range"
-          min="1"
-          max="100"
-          value="50"
-          class="slider"
-          id="discomfortRange"
-        />
-      </div>
-      <form action="/action_page.php">
-        <p><label for="extraMsg">Additioal Message:</label></p>
-        <textarea id="extraMsg" name="Additional Message" rows="10" cols="75">
-Would you like to add additional message to the therapist you match with?
-        </textarea>
-        <br />
-        <input type="submit" value="Submit" />
+      <form id="supportForm">
+        <div>
+          <label for="stressRange">Stress Level (0-10):</label>
+          <input type="range" id="stressRange" min="0" max="10" step="1" />
+        </div>
+        <div>
+          <label for="traumaRange">Trauma Impact (0-10):</label>
+          <input type="range" id="traumaRange" min="0" max="10" step="1" />
+        </div>
+        <div>
+          <label for="discomfortRange">Discomfort Level (0-10):</label>
+          <input type="range" id="discomfortRange" min="0" max="10" step="1" />
+        </div>
+        <div>
+          <label for="additionalMessage">Additional Message:</label>
+          <textarea id="additionalMessage" rows="4"></textarea>
+        </div>
+        <button type="submit">Find Matching Therapists</button>
       </form>
-    </div>
-    <script type="module" src="../../JS/Patient/pSupport.js"></script>
+  
+      <div id="matchResults"></div>
   </body>
 </html>

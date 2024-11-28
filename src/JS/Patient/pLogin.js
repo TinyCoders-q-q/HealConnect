@@ -41,7 +41,7 @@ loginForm.addEventListener("submit", async function (e) {
     );
     const user = userCredentials.user;
 
-    const userDoc = await getDoc(doc(patientDB, "users", user.uid));
+    const userDoc = await getDoc(doc(patientDB, "Patients", user.uid));
 
     if (userDoc.exists()) {
       const userData = userDoc.data();

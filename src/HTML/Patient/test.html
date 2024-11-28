@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Firebase Firestore Example</title>
+  </head>
+  <body>
+    <h1>Patients Data</h1>
+    <div id="data"></div>
+
+    <!-- Add Firebase SDK v9+ -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        getDocs,
+      } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+      // Firebase config
+      const firebaseConfig = {
+        apiKey: "AIzaSyDZ5ji5QplIsXi_cTQRQHy-R5_EKtNN7bE",
+        authDomain: "mentalhealthwelfareweb-49ed4.firebaseapp.com",
+        databaseURL:
+          "https://mentalhealthwelfareweb-49ed4-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "mentalhealthwelfareweb-49ed4",
+        storageBucket: "mentalhealthwelfareweb-49ed4.firebasestorage.app",
+        messagingSenderId: "118820807032",
+        appId: "1:118820807032:web:64ec64afcd0275af70a88d",
+        measurementId: "G-ZGZ8PJQ6ZS",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Reference to the "Patients" collection
+      const patientsRef = collection(db, "Patients");
+
+      // Fetch all documents from the "Patients" collection
+      getDocs(patientsRef)
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // Print the document ID and data
+            console.log(doc.id, " => ", doc.data());
+            document.getElementById("data").innerHTML += `<p>${
+              doc.id
+            }: ${JSON.stringify(doc.data())}</p>`;
+          });
+        })
+        .catch((error) => {
+          console.error("Error reading documents: ", error);
+        });
+    </script>
+  </body>
+</html>

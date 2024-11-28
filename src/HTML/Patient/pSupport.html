@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Patient Support Screen</title>
+  </head>
+  <body>
+    <div>
+      <h2>Could you try to define your problem?</h2>
+      <div class="slidecontainer">
+        Stress Level:
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value="50"
+          class="slider"
+          id="stresRange"
+        />
+      </div>
+      <div class="slidecontainer">
+        Trauma Impact:
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value="50"
+          class="slider"
+          id="traumaRange"
+        />
+      </div>
+      <div class="slidecontainer">
+        Discomfort:
+        <input
+          type="range"
+          min="1"
+          max="100"
+          value="50"
+          class="slider"
+          id="discomfortRange"
+        />
+      </div>
+      <form action="/action_page.php">
+        <p><label for="extraMsg">Additioal Message:</label></p>
+        <textarea id="extraMsg" name="Additional Message" rows="10" cols="75">
+Would you like to add additional message to the therapist you match with?
+        </textarea>
+        <br />
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
+    <script type="module" src="../../JS/Patient/pSupport.js"></script>
+  </body>
+</html>

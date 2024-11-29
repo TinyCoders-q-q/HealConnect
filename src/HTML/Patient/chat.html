@@ -3,52 +3,87 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat</title>
+    <title>Therapy Chat</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
       #chatBox {
-        height: 400px;
+        flex-grow: 1;
         overflow-y: auto;
-        border: 1px solid #ccc;
+        border: 1px solid #ddd;
         padding: 10px;
         margin-bottom: 10px;
       }
-
       .message {
-        margin: 5px 0;
-        padding: 10px;
-        border-radius: 5px;
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 8px;
+        max-width: 70%;
       }
-
       .sent {
-        background-color: #d1ffd1;
         align-self: flex-end;
+        background-color: #dcf8c6;
+        margin-left: auto;
       }
-
       .received {
-        background-color: #f1f1f1;
         align-self: flex-start;
+        background-color: #f1f0f0;
+        margin-right: auto;
       }
-
       #messageInput {
-        width: calc(100% - 90px);
+        flex-grow: 1;
+        padding: 8px;
         margin-right: 10px;
       }
-
       #sendButton {
-        width: 80px;
+        padding: 8px 16px;
+      }
+      .chat-container {
+        display: flex;
+        margin-top: 10px;
       }
     </style>
   </head>
   <body>
     <div id="chatBox"></div>
-    <input type="text" id="messageInput" placeholder="Type your message..." />
-    <button id="sendButton">Send</button>
+    <div class="chat-container">
+      <input type="text" id="messageInput" placeholder="Type your message..." />
+      <button id="sendButton">Send</button>
+    </div>
 
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"
+    ></script>
+
+    <!-- Import the specific Firebase products we want to use -->
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js"
+    ></script>
+    <script
+      type="module"
+      src="https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js"
+    ></script>
+
+    <!-- Import the modules -->
     <script type="module">
       import { initializeChat } from "../../JS/createChatHandler.js";
 
-      // Initialize the chat functionality
-      initializeChat();
+      // Initialize the chat when the page loads
+      window.addEventListener("DOMContentLoaded", initializeChat);
     </script>
   </body>
 </html>

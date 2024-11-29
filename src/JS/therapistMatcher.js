@@ -20,7 +20,7 @@ const firebaseConfig = {
   projectId: "mentalhealthwelfareweb-49ed4",
   databaseURL:
     "https://mentalhealthwelfareweb-49ed4-default-rtdb.asia-southeast1.firebasedatabase.app/",
-  storageBucket: "mentalhealthwelfareweb-49ed4.firebasestorage.app",
+  storageBucket: "mentalhealthwelfareweb-49ed4.appspot.com",
   messagingSenderId: "118820807032",
   appId: "1:118820807032:web:64ec64afcd0275af70a88d",
   measurementId: "G-ZGZ8PJQ6ZS",
@@ -108,21 +108,19 @@ class TherapistMatcher {
     }
 
     const patientId = this.authenticatedUser.uid;
-    const chatId = `${therapistId}_${patientId}_${Date.now()}`;
+    const chatId = `${patientId}_${therapistId}_${Date.now()}`;
     const status = "pending";
 
-    var response = await setDoc(doc(db, "TherapySessions", chatId), {
+    await setDoc(doc(db, "TherapySessions", chatId), {
       patientId,
       therapistId,
       chatId,
       status,
       requestedAt: new Date().toISOString(),
     });
-    console.log("Test"+response);
-
-    localStorage.setItem("TherapySessions",chatId)
 
     console.log(`Therapy session created with chatId: ${chatId}`);
+    localStorage.setItem("TherapySessions", chatId);
     return chatId;
   }
 }

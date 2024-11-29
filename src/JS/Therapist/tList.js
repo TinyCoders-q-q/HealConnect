@@ -58,7 +58,11 @@ async function fetchTherapistData() {
       where("status", "==", "active") // Assuming "active" status indicates ongoing sessions
     );
     const clientSnapshot = await getDocs(clientQuery);
-    console.log("Active clients fetched:", clientSnapshot.docs.map((doc) => doc.data()));
+
+    console.log("Active clients fetched:", clientSnapshot);
+    if (!clientSnapshot.empty) {
+      console.log("Active clients data:", clientSnapshot.docs.map((doc) => doc.data()));
+    }
 
     // Query for incoming client requests
     console.log("Fetching incoming client requests...");
@@ -68,11 +72,16 @@ async function fetchTherapistData() {
       where("status", "==", "pending") // Assuming "pending" status indicates incoming requests
     );
     const incomingSnapshot = await getDocs(incomingQuery);
-    console.log("Incoming client requests fetched:", incomingSnapshot.docs.map((doc) => doc.data()));
+
+    console.log("Incoming client requests fetched:", incomingSnapshot);
+    if (!incomingSnapshot.empty) {
+      console.log("Incoming client requests data:", incomingSnapshot.docs.map((doc) => doc.data()));
+    }
 
     // Render the lists
     renderList(clientSnapshot, "therapistClients");
     renderList(incomingSnapshot, "incomingClients");
+
   } catch (error) {
     console.error("Error fetching data:", error);
   }

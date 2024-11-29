@@ -3,22 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Therapist List</title>
+    <title>Therapist Client List</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .list {
+        list-style-type: none;
+        padding: 0;
+      }
+      .list-item {
+        padding: 10px;
+        border: 1px solid #ccc;
+        margin-bottom: 5px;
+        border-radius: 5px;
+      }
+    </style>
   </head>
   <body>
-    <h2>Lists of patients</h2>
-    <div>
-      <h3>Your Patients</h3>
-      <list>
-        <script type="module" src="../../JS/Therapist/tPatients.js"></script>
-      </list>
+    <div class="container">
+      <h1>Therapist Dashboard</h1>
+      <div class="section">
+        <h2>Your Clients</h2>
+        <ul id="therapistClients" class="list">
+          <!-- Client list items will be populated here -->
+        </ul>
+      </div>
+      <div class="section">
+        <h2>Incoming Requests</h2>
+        <ul id="incomingClients" class="list">
+          <!-- Incoming request items will be populated here -->
+        </ul>
+      </div>
     </div>
-    <div>
-      <h3>Incoming Patients</h3>
-      <list>
-        <script type="module" src="../../JS/Therapist/tIncoming.js"></script>
-      </list>
-    </div>
-    <div></div>
+
+    <script type="module" src="../../JS/Therapist/tList.js"></script>
   </body>
 </html>

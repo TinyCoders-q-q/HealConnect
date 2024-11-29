@@ -1,13 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        
-    </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat</title>
+    <style>
+      #chatBox {
+        height: 400px;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+
+      .message {
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 5px;
+      }
+
+      .sent {
+        background-color: #d1ffd1;
+        align-self: flex-end;
+      }
+
+      .received {
+        background-color: #f1f1f1;
+        align-self: flex-start;
+      }
+
+      #messageInput {
+        width: calc(100% - 90px);
+        margin-right: 10px;
+      }
+
+      #sendButton {
+        width: 80px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chatBox"></div>
+    <input type="text" id="messageInput" placeholder="Type your message..." />
+    <button id="sendButton">Send</button>
+
+    <script type="module">
+      import { initializeChat } from "../../JS/createChatHandler.js";
+
+      // Initialize the chat functionality
+      initializeChat();
+    </script>
+  </body>
 </html>

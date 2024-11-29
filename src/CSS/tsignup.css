@@ -55,38 +55,12 @@ ul li{
 ul li a:hover{
     color:#4840A3;
 }
-.connect{
-    width: 330px;
-    float: left;
-    margin-left: 270px;
-}
-.btn{
-    width: 100px;
-    height: 30px;
-    background-color: #4840A3;
-    /* border: 1px solid white; */
-    color: white;
-    margin-top: 27px;
-    border-radius: 10px;
-    font-size: 15px;
-    
-}
-.btn:focus{
-    outline: none;
-}
-body{
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; */
-    background: #eaf1ff;
-}
 .wrapper{
     width: 500px;
     background:linear-gradient(127deg,#D8EFF7, #9CBBFC, #4840A3) ;
     margin-top: 50px;
     border-radius: 20px;
-    height: 450px;  
+    height: 600px;  
     align-items: center;
     justify-content: center;
 }
@@ -96,7 +70,7 @@ body{
     padding-top: 20px;
 }
 .wrapper .input-box{
-    width: 100%;
+    width: 70%;
     height: 50px;
     margin: 20px;
     justify-content: center;
@@ -143,28 +117,21 @@ body{
     background: #002a85;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-.wrapper .btnn:hover{
-    color: #ffffff;
-    background: #002a85;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
 .wrapper .btnn{
     width: 70%;
     height: 45px;
-    background: #4840A3;
+    background: #eeeeee;
     border: none;
     outline: none;
     border-radius: 40px;
     box-shadow: 0 0 10px rgba(0,0,0, .1);
     cursor:pointer;
-    font-size: 16px;
-    color:#ffffff;
-    margin-left:10px;
-    padding-top: 2px;
-}
-#errorMessage{
-    color:#a31d1d;
     font-size: 14px;
-    text-align: center;
-    padding-top: 0px;
+    color:#000000;
+    margin-left:20px;
+}
+.wrapper .btnn:hover{
+    color: #000000;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }

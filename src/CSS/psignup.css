@@ -69,17 +69,9 @@ ul li a:hover{
     margin-top: 27px;
     border-radius: 10px;
     font-size: 15px;
-    
 }
 .btn:focus{
     outline: none;
-}
-body{
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh; */
-    background: #eaf1ff;
 }
 .wrapper{
     width: 500px;
@@ -142,29 +134,4 @@ body{
     color: #ffffff;
     background: #002a85;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-.wrapper .btnn:hover{
-    color: #ffffff;
-    background: #002a85;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-.wrapper .btnn{
-    width: 70%;
-    height: 45px;
-    background: #4840A3;
-    border: none;
-    outline: none;
-    border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0, .1);
-    cursor:pointer;
-    font-size: 16px;
-    color:#ffffff;
-    margin-left:10px;
-    padding-top: 2px;
-}
-#errorMessage{
-    color:#a31d1d;
-    font-size: 14px;
-    text-align: center;
-    padding-top: 0px;
 }

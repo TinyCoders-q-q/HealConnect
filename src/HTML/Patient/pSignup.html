@@ -4,29 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patient Signup</title>
+    <link rel="stylesheet" href="../../CSS/psignup.css">
   </head>
   <body>
-    <div>
+    <div class="main">
+      <div class="nav">
+          <div class="icon">
+              <h2 class="logo">HealConnect</h2>
+          </div>
+          <div class="menu">
+              <ul>
+                  <li><a href="/src/HTML/index.html">home</a></li>
+                  <li><a href="#heading">about us</a></li>
+                  <li><a href="">contact</a></li>
+              </ul>
+          </div>
+          <!-- <div class="connect">
+              <a href="#">
+                  <button class="btn" onclick="location.href='connect.html'">connect</button>
+              </a>
+          </div> -->
+      </div>
+     </div>
+    <div class="wrapper">
       <h2>Signup form</h2>
       <form id="signupForm">
-        <div>
-          <label for="fullName">Fullname</label>
-          <input type="text" id="fullname" required />
+        <div class="input-box">
+          <label for="fullName"></label>
+          <input type="text" id="fullname" placeholder="Fullname" required />
         </div>
-        <div>
-          <label for="emailAdress">Email address</label>
-          <input type="email" id="emailaddress" required />
+        <div class="input-box">
+          <label for="emailAdress"></label>
+          <input type="email" id="emailaddress" placeholder="email" required />
         </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" id="password" required />
+        <div class="input-box">
+          <label for="password"></label>
+          <input type="password" id="password" placeholder="password" required />
         </div>
-        <div>
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" required />
+        <div class="input-box">
+          <label for="confirmPassword"></label>
+          <input type="password" id="confirmPassword" placeholder="confirm password" required />
         </div>
-        <div>
-          <button type="submit">Signup</button>
+        <div class="input-box">
+          <button type="submit" class="btn" onclick="location.href='seekHelp.html'">Signup</button>
         </div>
       </form>
     </div>

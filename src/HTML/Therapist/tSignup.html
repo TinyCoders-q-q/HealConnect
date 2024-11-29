@@ -4,24 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Therapist Signup</title>
+    <link rel="stylesheet" href="/src/CSS/tsignup.css">
   </head>
   <body>
-    <div>
-      <h2>Signup form</h2>
+    <div class="main">
+      <div class="nav">
+          <div class="icon">
+              <h2 class="logo">HealConnect</h2>
+          </div>
+          <div class="menu">
+              <ul>
+                  <li><a href="index.html">home</a></li>
+                  <li><a href="#heading">about us</a></li>
+                  <li><a href="">contact</a></li>
+              </ul>
+          </div>
+      </div>
+     </div>
+    <div class="wrapper">
+      <h2>Sign up</h2>
       <div id="errorMessage" style="display: none; color: red"></div>
-
       <form id="signupForm">
-        <div>
-          <label for="fullName">Fullname</label>
-          <input type="text" id="fullname" required />
+        <div class="input-box">
+          <label for="fullName"></label>
+          <input type="text" id="fullname" placeholder="Fullname" required />
         </div>
-        <div>
-          <label for="emailAdress">Email address</label>
-          <input type="email" id="emailaddress" required />
+        <div class="input-box">
+          <label for="emailAdress"></label>
+          <input type="email" id="emailaddress" placeholder="Email address" required />
         </div>
-        <div>
-          <label for="diagnosisChoice">Expertise:</label>
-          <select name="discorder" id="disorderExpertise" required>
+        <div class="input-box">
+          <label for="diagnosisChoice"  class="input-box">Expertise</label>
+          <select name="discorder" id="disorderExpertise" class="btnn" required>
             <option value="adhd">ADHD</option>
             <option value="depression">Depression</option>
             <option value="bipolar">Bipolar</option>
@@ -30,24 +44,20 @@
             <option value="addiction">Addiction</option>
           </select>
         </div>
-        <div>
-          <label for="licenseUrl">License:</label>
-          <input type="text" id="licenseUrl" required />
+        <div class="input-box">
+          <label for="licenseUrl"></label>
+          <input type="text" id="licenseUrl" placeholder="License No." required />
         </div>
-        <div>
-          <label for="citizenshipNum">Citizenship Number:</label>
-          <input type="text" id="citizenshipNum" required />
+        <div class="input-box">
+          <label for="password"></label>
+          <input type="password" id="password" placeholder="Password" required />
         </div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" id="password" required />
+        <div class="input-box">
+          <label for="confirmPassword"></label>
+          <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
         </div>
-        <div>
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" id="confirmPassword" required />
-        </div>
-        <div>
-          <button type="submit">Signup</button>
+        <div class="input-box">
+          <button type="submit" class="btn">Sign up</button>
         </div>
       </form>
     </div>

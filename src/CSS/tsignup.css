@@ -56,7 +56,7 @@ ul li a:hover{
     color:#4840A3;
 }
 .wrapper{
-    width: 500px;
+    width: 450px;
     background:linear-gradient(127deg,#D8EFF7, #9CBBFC, #4840A3) ;
     margin-top: 50px;
     border-radius: 20px;
@@ -73,9 +73,10 @@ ul li a:hover{
     width: 70%;
     height: 50px;
     margin: 20px;
+    align-items: center;
     justify-content: center;
     padding:0px 10px;
-    margin-left:60px;
+    margin-left:90px;
 }
 .input-box input{
     width: 70%;
@@ -106,32 +107,25 @@ ul li a:hover{
     border: none;
     outline: none;
     border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0, .1);
     cursor:pointer;
-    font-size: 16px;
+    font-size: 15px;
     color:#ffffff;
     margin-left:10px;
 }
 .wrapper .btn:hover{
     color: #ffffff;
     background: #002a85;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
-.wrapper .btnn{
+.wrapper .input-box .btnn{
     width: 70%;
     height: 45px;
-    background: #eeeeee;
+    background:transparent;
     border: none;
     outline: none;
     border-radius: 40px;
-    box-shadow: 0 0 10px rgba(0,0,0, .1);
+    border: 2px solid #4840A3;
     cursor:pointer;
     font-size: 14px;
     color:#000000;
-    margin-left:20px;
-}
-.wrapper .btnn:hover{
-    color: #000000;
-    background: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    float: left;
 }

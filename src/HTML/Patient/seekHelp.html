@@ -4,12 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patient Home</title>
+    <link rel="stylesheet" href="/src/CSS/seekHelp.css">
   </head>
-  <body>
-    <div>
-      <h2>What would you like to see?</h2>
-      <a href="pDiagnosis.html"><div>Diagnosis</div></a>
-      <a href="pSupport.html"><div>Support</div></a>
-    </div>
-  </body>
+  <body class="connect_page">
+    <div class="main">
+        <div class="nav">
+            <div class="icon">
+                <h2 class="logo">HealConnect</h2>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">home</a></li>
+                    <li><a href="index.html">about us</a></li>
+                    <li><a href="">contact</a></li>
+                </ul>
+            </div>
+        </div>
+   </div>
+
+<div class="lbox">
+    <section>
+        <div class="lheading" >
+            <h3>Seek help for</h3>
+        </div>
+    </section>
+    <button class="lboxes" onclick="location.href='/src/HTML/Patient/pDiagnosis.html'">
+        <!-- <div class="icon1">
+            <img src="images/patient.png" alt="">
+        </div> -->
+        <div class="title">
+            <h5>Diagnosis</h5>
+        </div>
+    </button>
+    <!-- <a href="/src/HTML/Patient/pLogin.html">patient</a> -->
+    <button class="lboxes" onclick="location.href='/src/HTML/Patient/pSupport.html'">
+        <!-- <div class="icon1">
+            <img src="images/user-icon.png" alt="">
+        </div> -->
+        <div class="title">
+            <h5>Support</h5>
+        </div>
+    </button>
+</div>
+</body>
 </html>

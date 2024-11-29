@@ -4,13 +4,195 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patient's Diagnosis Screen</title>
+    <link rel="stylesheet" href="/src/CSS/pDaignosis.css">
+    <style>
+      #additionalMessage {
+        resize: none;
+        float: left;
+      }
+    </style>
+    <script type="module">
+      import TherapistMatcher from "../../JS/therapistMatcher.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const supportForm = document.getElementById("supportForm");
+        const matchResultsContainer = document.getElementById("matchResults");
+
+        supportForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const stressLevel = document.getElementById("stressRange").value;
+          const traumaImpact = document.getElementById("traumaRange").value;
+          const discomfortLevel = document.getElementById("discomfortRange").value;
+          const challenges = document.getElementById("ques1").value;
+          const additionalMessage = document.getElementById("additionalMessage").value;
+          const emotionalState = document.querySelector('input[name="emotionalState"]:checked')?.value;
+          const dailyActivities = document.querySelector('input[name="dailyActivities"]:checked')?.value;
+          const copingMechanisms = document.getElementById("copingMechanisms").value;
+          const supportSystem = document.querySelector('input[name="support"]:checked')?.value;
+          const sleepingPattern = document.querySelector('input[name="sleep"]:checked')?.value;
+
+          try {
+            // Save the patient's input first
+            await TherapistMatcher.savePatientSupportInput(
+              stressLevel,
+              traumaImpact,
+              discomfortLevel,
+              challenges,
+              additionalMessage,
+              emotionalState,
+              dailyActivities,
+              copingMechanisms,
+              supportSystem,
+              sleepingPattern
+            );
+
+            // Extract keywords from the additional message to match expertise
+            const expertiseKeywords = extractKeywordsFromMessage(additionalMessage);
+
+            // Find matched therapists based on the extracted expertise keywords
+            const matchedTherapists = await TherapistMatcher.findMatchingTherapists(expertiseKeywords);
+
+            matchResultsContainer.innerHTML = "<h3>Recommended Therapists</h3>";
+
+            if (matchedTherapists.length > 0) {
+              matchedTherapists.forEach((therapist) => {
+                const therapistCard = document.createElement("div");
+                therapistCard.innerHTML = `
+                  <p>Name: ${therapist.name}</p>
+                  <p>Expertise: ${therapist.expertise}</p>
+                  <p>Match Score: ${(therapist.matchScore * 100).toFixed(2)}%</p>
+                  <button onclick="requestSession('${therapist.id}')">Request Session</button>
+                `;
+                matchResultsContainer.appendChild(therapistCard);
+              });
+            } else {
+              matchResultsContainer.innerHTML += "<p>No therapists match your expertise criteria.</p>";
+            }
+          } catch (error) {
+            console.error("Matchmaking failed:", error);
+            matchResultsContainer.innerHTML = `<p>Error: ${error.message}</p>`;
+          }
+        });
+
+        // Function to extract keywords from the message input
+        function extractKeywordsFromMessage(message) {
+          const keywords = [
+            "depression",
+            "stress",
+            "anxiety",
+            "trauma",
+            "adhd",
+            "bipolar",
+            "ptsd",
+            "discomfort",
+          ];
+
+          const normalizedMessage = message.toLowerCase();
+          return keywords.filter((keyword) => normalizedMessage.includes(keyword));
+        }
+
+        window.requestSession = async (therapistId) => {
+          try {
+            await TherapistMatcher.requestTherapySession(therapistId);
+            alert("Therapy session request sent successfully!");
+          } catch (error) {
+            alert("Failed to request session: " + error.message);
+          }
+        };
+      });
+    </script>
   </head>
   <body>
-    <div>
-      <h2>Which therapist expertise would you like for your diagnosis?</h2>
+    <div class="main">
+      <div class="nav">
+          <div class="icon">
+              <h2 class="logo">HealConnect</h2>
+          </div>
+          <div class="menu">
+              <ul>
+                  <li><a href="/src/HTML/index.html">home</a></li>
+                  <li><a href="#heading">about us</a></li>
+                  <li><a href="">contact</a></li>
+              </ul>
+          </div>
+      </div>
+     </div>
+    <div class="wrapper">
+      <h1>Patient Support Form</h1>
+      <form id="supportForm">
+        <!-- Existing Questions -->
+        <div class="input-box">
+          <label for="stressRange">Stress Level (0-10):</label><br />
+          <input type="range" id="stressRange" min="0" max="10" step="1" />
+        </div>
+        <div class="input-box">
+          <label for="traumaRange">Trauma Impact (0-10):</label><br />
+          <input type="range" id="traumaRange" min="0" max="10" step="1" />
+        </div>
+        <div class="input-box">
+          <label for="discomfortRange">Discomfort Level (0-10):</label><br />
+          <input type="range" id="discomfortRange" min="0" max="10" step="1" />
+        </div>
+        <div class="input-box">
+          <label for="ques1">Can you tell me about the main issues or concerns that brought you here today?</label><br />
+          <textarea id="ques1" rows="3" cols="50" placeholder="Describe your challenges..."></textarea>
+        </div>
+
+        <div class="input-box">
+          <label for="additionalMessage">Additional Message:</label><br />
+          <textarea
+            id="additionalMessage"
+            rows="4"
+            cols="50"
+            placeholder="Add any additional information about your condition (e.g., 'I'm feeling overwhelmed')."
+          ></textarea>
+        </div>
+
+        <!-- New Questions -->
+        <div class="input-box">
+          <label>How would you describe your emotional state recently?</label>
+          <input type="radio" name="emotionalState" id="calm" value="calm" /><label for="calm">Calm</label>
+          <input type="radio" name="emotionalState" id="irritable" value="irritable" /><label for="irritable">Irritable</label>
+          <input type="radio" name="emotionalState" id="overwhelmed" value="overwhelmed" /><label for="overwhelmed">Overwhelmed</label>
+        </div>
+        <div class="input-box">
+          <label>Have your daily activities been affected by your condition?</label><br />
+          <input type="radio" name="dailyActivities" id="noImpact" value="noImpact" /><label for="noImpact">No significant impact</label>
+          <input type="radio" name="dailyActivities" id="minorImpact" value="minorImpact" /><label for="minorImpact">Minor impact</label>
+          <input type="radio" name="dailyActivities" id="majorImpact" value="majorImpact" /><label for="majorImpact">Major impact</label>
+        </div>
+        <div class="input-box">
+          <label for="copingMechanisms">What coping mechanisms have you tried so far?</label>
+          <textarea
+            id="copingMechanisms"
+            rows="3"
+            cols="50"
+            placeholder="Describe any strategies, activities, or treatments you've tried."
+          ></textarea>
+        </div>
+        <div class="input-box">
+          <label>Do you have a support system?</label>
+          <input type="radio" name="support" id="supportYes" value="yes" /><label for="supportYes">Yes</label>
+          <input type="radio" name="support" id="supportNo" value="no" /><label for="supportNo">No</label>
+        </div>
+        <div class="input-box">
+          <label>How would you describe your sleeping pattern?</label><br />
+          <input type="radio" name="sleep" id="sleepGood" value="good" /><label for="sleepGood">Good</label>
+          <input type="radio" name="sleep" id="sleepPoor" value="poor" /><label for="sleepPoor">Poor</label>
+        </div>
+        <button type="submit" class="btn">Find Matching Therapists</button>
+      </form>
+
+      <div id="matchResults"></div>
+      <div class="seemore">
+        <button type="submit" onclick="location.href=''" class="btnn">See More</button>
+      </div>
+      <!-- Diagnosis Form -->
+      <!-- <h2>Which therapist expertise would you like for your diagnosis?</h2>
       <form id="diagnosisForm">
         <label for="diagnosisChoice">Choose a diagnosis:</label>
-        <select name="discorder" id="cars">
+        <select name="disorder" id="diagnosisChoice">
           <option value="adhd">ADHD</option>
           <option value="depression">Depression</option>
           <option value="bipolar">Bipolar</option>
@@ -20,7 +202,7 @@
         </select>
         <br /><br />
         <input type="submit" value="Submit" />
-      </form>
+      </form> -->
     </div>
 
     <script type="module" src="../../JS/Patient/pDiagnosis.js"></script>

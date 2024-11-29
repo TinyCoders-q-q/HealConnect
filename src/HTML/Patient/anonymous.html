@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Login</title>
+    <link rel="stylesheet" href="/src/CSS/anonymous.css">
+    <script type="module" src="../../JS/Patient/anonymous.js" defer></script>
+</head>
+<body>
+    <div class="main">
+        <div class="nav">
+            <div class="icon">
+                <h2 class="logo">HealConnect</h2>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="index.html">home</a></li>
+                    <li><a href="#heading">about us</a></li>
+                    <li><a href="">contact</a></li>
+                </ul>
+            </div>
+        </div>
+       </div>
+    <div class="wrapper">
+        <h2>Anonymous Login</h2>
+        <p>Enter a username below or leave it blank to use "User" as your nickname:</p>
+        
+        <!-- Username Input -->
+        <div class="input-box">
+            <input type="text" id="usernameInput" placeholder="Enter your username..." />
+        </div>
+        <!-- Login Button -->
+         <div class="input-box">
+            <button id="anonymousLoginBtn" class="btn">Login Anonymously</button>
+         </div>
+        <!-- Status and Error Messages -->
+
+        <div id="statusMessage" style="display: none; color: green;"></div>
+        <div id="errorMessage" style="display: none; color: red;"></div>
+    </div>
+</body>
+</html>

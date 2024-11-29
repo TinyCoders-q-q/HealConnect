@@ -3,51 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Therapist Client List</title>
+    <title>Therapist Dashboard</title>
     <style>
       body {
         font-family: Arial, sans-serif;
-        margin: 20px;
-      }
-      h1 {
-        text-align: center;
-      }
-      .container {
         max-width: 800px;
         margin: 0 auto;
+        padding: 20px;
       }
-      .section {
-        margin-bottom: 20px;
-      }
-      .list {
-        list-style-type: none;
-        padding: 0;
+      .dashboard-section {
+        margin-bottom: 30px;
       }
       .list-item {
+        border: 1px solid #ddd;
         padding: 10px;
-        border: 1px solid #ccc;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         border-radius: 5px;
+      }
+      .patient-info {
+        line-height: 1.6;
+      }
+      #error-message {
+        color: red;
+        font-weight: bold;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <h1>Therapist Dashboard</h1>
-      <div class="section">
-        <h2>Your Clients</h2>
-        <ul id="therapistClients" class="list">
-          <!-- Client list items will be populated here -->
-        </ul>
-      </div>
-      <div class="section">
-        <h2>Incoming Requests</h2>
-        <ul id="incomingClients" class="list">
-          <!-- Incoming request items will be populated here -->
-        </ul>
-      </div>
+    <h1>Therapist Dashboard</h1>
+
+    <!-- Error Message Display -->
+    <div id="error-message"></div>
+
+    <div class="dashboard-section">
+      <h2>Your Clients</h2>
+      <ul id="therapistClients" class="patient-list">
+        <!-- Active clients will be dynamically populated here -->
+      </ul>
     </div>
 
+    <div class="dashboard-section">
+      <h2>Incoming Requests</h2>
+      <ul id="incomingClients" class="patient-list">
+        <!-- Pending client requests will be dynamically populated here -->
+      </ul>
+    </div>
+
+    <!-- Firebase and App Scripts -->
     <script type="module" src="../../JS/Therapist/tList.js"></script>
   </body>
 </html>

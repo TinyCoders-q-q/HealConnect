@@ -111,13 +111,16 @@ class TherapistMatcher {
     const chatId = `${therapistId}_${patientId}_${Date.now()}`;
     const status = "pending";
 
-    await setDoc(doc(db, "TherapySessions", chatId), {
+    var response = await setDoc(doc(db, "TherapySessions", chatId), {
       patientId,
       therapistId,
       chatId,
       status,
       requestedAt: new Date().toISOString(),
     });
+    console.log("Test"+response);
+
+    localStorage.setItem("TherapySessions",chatId)
 
     console.log(`Therapy session created with chatId: ${chatId}`);
     return chatId;

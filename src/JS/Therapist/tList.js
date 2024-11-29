@@ -29,6 +29,67 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+// Fetch detailed patient information
+async function fetchPatientDetails(patientId) {
+  console.log("Fetching details for patient:", patientId); // Log patient ID
+  try {
+    const patientQuery = query(
+      collection(db, "Users"),
+      where("uid", "==", patientId)
+    );
+
+    const patientSnapshot = await getDocs(patientQuery);
+    console.log("Patient snapshot:", patientSnapshot); // Log the snapshot
+
+    if (!patientSnapshot.empty) {
+      console.log("Patient details fetched:", patientSnapshot.docs[0].data());
+      return patientSnapshot.docs[0].data();
+    }
+    console.log("No patient found with ID:", patientId);
+    return null;
+  } catch (error) {
+    console.error("Error fetching patient details:", error);
+    return null;
+  }
+}
+
+// Render a list of patients
+async function renderPatientList(snapshot, elementId) {
+  console.log(`Rendering list for element ID: ${elementId}`);
+  const listElement = document.getElementById(elementId);
+  listElement.innerHTML = ""; // Clear previous items
+
+  if (snapshot.empty) {
+    console.log(`No entries found for ${elementId}`);
+    listElement.innerHTML = "<li class='list-item'>No patients found.</li>";
+    return;
+  }
+
+  // Fetch and render patient details for each session
+  for (const doc of snapshot.docs) {
+    const sessionData = doc.data();
+    const patientDetails = await fetchPatientDetails(sessionData.patientId);
+
+    const listItem = document.createElement("li");
+    listItem.classList.add("list-item");
+
+    // Render patient info with more details if available
+    if (patientDetails) {
+      listItem.innerHTML = `
+        <div class="patient-info">
+          <strong>Name:</strong> ${patientDetails.name || "N/A"}
+          <br><strong>Patient ID:</strong> ${sessionData.patientId}
+          <br><strong>Email:</strong> ${patientDetails.email || "N/A"}
+        </div>
+      `;
+    } else {
+      listItem.textContent = `Patient ID: ${sessionData.patientId}`;
+    }
+
+    listElement.appendChild(listItem);
+  }
+}
+
 // Fetch data for therapist
 async function fetchTherapistData() {
   console.log("Initializing fetchTherapistData...");
@@ -52,63 +113,35 @@ async function fetchTherapistData() {
   try {
     // Query for active clients
     console.log("Fetching active clients...");
-    const clientQuery = query(
+    const activeClientsQuery = query(
       collection(db, "TherapySessions"),
       where("therapistId", "==", therapistId),
-      where("status", "==", "active") // Assuming "active" status indicates ongoing sessions
+      where("status", "==", "active")
     );
-    const clientSnapshot = await getDocs(clientQuery);
-
-    console.log("Active clients fetched:", clientSnapshot);
-    if (!clientSnapshot.empty) {
-      console.log("Active clients data:", clientSnapshot.docs.map((doc) => doc.data()));
-    }
+    const activeClientsSnapshot = await getDocs(activeClientsQuery);
 
     // Query for incoming client requests
     console.log("Fetching incoming client requests...");
-    const incomingQuery = query(
+    const incomingClientsQuery = query(
       collection(db, "TherapySessions"),
       where("therapistId", "==", therapistId),
-      where("status", "==", "pending") // Assuming "pending" status indicates incoming requests
+      where("status", "==", "pending")
     );
-    const incomingSnapshot = await getDocs(incomingQuery);
-
-    console.log("Incoming client requests fetched:", incomingSnapshot);
-    if (!incomingSnapshot.empty) {
-      console.log("Incoming client requests data:", incomingSnapshot.docs.map((doc) => doc.data()));
-    }
+    
+    const incomingClientsSnapshot = await getDocs(incomingClientsQuery);
 
     // Render the lists
-    renderList(clientSnapshot, "therapistClients");
-    renderList(incomingSnapshot, "incomingClients");
-
+    await renderPatientList(activeClientsSnapshot, "therapistClients");
+    await renderPatientList(incomingClientsSnapshot, "incomingClients");
   } catch (error) {
     console.error("Error fetching data:", error);
+    // Display error message to the user
+    const errorElement = document.getElementById("error-message");
+    if (errorElement) {
+      errorElement.textContent =
+        "Failed to load patient information. Please try again later.";
+    }
   }
-}
-
-// Render a list of items
-function renderList(snapshot, elementId) {
-  console.log(`Rendering list for element ID: ${elementId}`);
-  const listElement = document.getElementById(elementId);
-  listElement.innerHTML = ""; // Clear previous items
-
-  if (snapshot.empty) {
-    console.log(`No entries found for ${elementId}`);
-    listElement.innerHTML = "<li class='list-item'>No entries found.</li>";
-    return;
-  }
-
-  snapshot.forEach((doc) => {
-    const data = doc.data();
-    console.log(`Rendering item:`, data);
-    const listItem = document.createElement("li");
-    listItem.classList.add("list-item");
-
-    // Render patient info
-    listItem.textContent = `Patient ID: ${data.patientId}`;
-    listElement.appendChild(listItem);
-  });
 }
 
 // Initialize

@@ -30,6 +30,8 @@ export async function initializeChat() {
     return;
   }
 
+  var sid =localStorage.getItem("TherapySessions");
+
   const sessionSnapshot = await getDoc(doc(db, "TherapySessions", userId));
 
   if (!sessionSnapshot.exists()) {

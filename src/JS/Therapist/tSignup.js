@@ -35,7 +35,6 @@ signupForm.addEventListener("submit", async function (e) {
   const fullName = document.getElementById("fullname").value;
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmPassword").value;
-  const citizenshipNum = document.getElementById("citizenshipNum").value;
   const licenseUrl = document.getElementById("licenseUrl").value;
   const disorderExpertise = document.getElementById("disorderExpertise").value;
   var isTherapist = false;
@@ -55,7 +54,6 @@ signupForm.addEventListener("submit", async function (e) {
     await setDoc(doc(therapistDB, "Therapists", user.uid), {
       fullName: fullName,
       email: emailAddress,
-      citizenshipid: citizenshipNum,
       license: licenseUrl,
       expertise: disorderExpertise,
       booltherapist: isTherapist,

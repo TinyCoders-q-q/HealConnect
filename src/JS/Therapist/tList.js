@@ -5,6 +5,8 @@ import {
   query,
   where,
   getDocs,
+  doc,
+  updateDoc,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 import {
   getAuth,
@@ -31,7 +33,7 @@ const auth = getAuth(app);
 
 // Fetch detailed patient information
 async function fetchPatientDetails(patientId) {
-  console.log("Fetching details for patient:", patientId); // Log patient ID
+  console.log("Fetching details for patient:", patientId);
   try {
     const patientQuery = query(
       collection(db, "Users"),
@@ -39,10 +41,8 @@ async function fetchPatientDetails(patientId) {
     );
 
     const patientSnapshot = await getDocs(patientQuery);
-    console.log("Patient snapshot:", patientSnapshot); // Log the snapshot
 
     if (!patientSnapshot.empty) {
-      console.log("Patient details fetched:", patientSnapshot.docs[0].data());
       return patientSnapshot.docs[0].data();
     }
     console.log("No patient found with ID:", patientId);
@@ -53,15 +53,34 @@ async function fetchPatientDetails(patientId) {
   }
 }
 
-// Render a list of patients
-async function renderPatientList(snapshot, elementId) {
-  console.log(`Rendering list for element ID: ${elementId}`);
+// Start chat with a patient
+async function startChat(patientId, sessionId, isNewRequest = false) {
+  try {
+    // Update session status
+    const sessionRef = doc(db, "TherapySessions", sessionId);
+    await updateDoc(sessionRef, {
+      status: "active",
+      lastInteraction: new Date(),
+    });
+
+    // Navigate to chat page or open chat window
+    // You might want to replace this with your actual chat navigation logic
+    window.location.href = `../../HTML/Patient/chat.html?patientId=${patientId}&sessionId=${sessionId}`;
+  } catch (error) {
+    console.error("Error starting chat:", error);
+    alert("Failed to start chat. Please try again.");
+  }
+}
+
+// Render a list of patients with start talking button
+async function renderPatientList(snapshot, elementId, isNewRequest = false) {
   const listElement = document.getElementById(elementId);
   listElement.innerHTML = ""; // Clear previous items
 
   if (snapshot.empty) {
-    console.log(`No entries found for ${elementId}`);
-    listElement.innerHTML = "<li class='list-item'>No patients found.</li>";
+    listElement.innerHTML = `<li class='list-item'>No ${
+      isNewRequest ? "incoming" : "active"
+    } patients found.</li>`;
     return;
   }
 
@@ -73,18 +92,32 @@ async function renderPatientList(snapshot, elementId) {
     const listItem = document.createElement("li");
     listItem.classList.add("list-item");
 
-    // Render patient info with more details if available
+    // Render patient info with start talking button
+    const startTalkingButton = document.createElement("button");
+    startTalkingButton.textContent = "Start Talking";
+    startTalkingButton.classList.add("start-talking-btn");
+    startTalkingButton.addEventListener("click", () =>
+      startChat(sessionData.patientId, doc.id, isNewRequest)
+    );
+
+    // Create patient info div
+    const patientInfoDiv = document.createElement("div");
+    patientInfoDiv.classList.add("patient-info");
+
+    // Populate patient info
     if (patientDetails) {
-      listItem.innerHTML = `
-        <div class="patient-info">
-          <strong>Name:</strong> ${patientDetails.name || "N/A"}
-          <br><strong>Patient ID:</strong> ${sessionData.patientId}
-          <br><strong>Email:</strong> ${patientDetails.email || "N/A"}
-        </div>
+      patientInfoDiv.innerHTML = `
+        <strong>Name:</strong> ${patientDetails.name || "N/A"}
+        <br><strong>Patient ID:</strong> ${sessionData.patientId}
+        <br><strong>Email:</strong> ${patientDetails.email || "N/A"}
       `;
     } else {
-      listItem.textContent = `Patient ID: ${sessionData.patientId}`;
+      patientInfoDiv.textContent = `Patient ID: ${sessionData.patientId}`;
     }
+
+    // Append patient info and button to list item
+    listItem.appendChild(patientInfoDiv);
+    listItem.appendChild(startTalkingButton);
 
     listElement.appendChild(listItem);
   }
@@ -127,12 +160,12 @@ async function fetchTherapistData() {
       where("therapistId", "==", therapistId),
       where("status", "==", "pending")
     );
-    
+
     const incomingClientsSnapshot = await getDocs(incomingClientsQuery);
 
     // Render the lists
-    await renderPatientList(activeClientsSnapshot, "therapistClients");
-    await renderPatientList(incomingClientsSnapshot, "incomingClients");
+    await renderPatientList(activeClientsSnapshot, "therapistClients", false);
+    await renderPatientList(incomingClientsSnapshot, "incomingClients", true);
   } catch (error) {
     console.error("Error fetching data:", error);
     // Display error message to the user
@@ -147,3 +180,6 @@ async function fetchTherapistData() {
 // Initialize
 console.log("Starting the application...");
 fetchTherapistData();
+
+// Export functions if needed for testing or external use
+export { fetchTherapistData, startChat };

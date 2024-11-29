@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Therapist Dashboard</title>
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-      }
-      .dashboard-section {
-        margin-bottom: 30px;
-      }
-      .list-item {
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-      }
-      .patient-info {
-        line-height: 1.6;
-      }
-      #error-message {
-        color: red;
-        font-weight: bold;
-      }
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .dashboard-section {
+            margin-bottom: 30px;
+        }
+        #error-message {
+            color: red;
+            font-weight: bold;
+        }
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .patient-info {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+        .start-talking-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .start-talking-btn:hover {
+            background-color: #45a049;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <h1>Therapist Dashboard</h1>
 
-    <!-- Error Message Display -->
     <div id="error-message"></div>
 
     <div class="dashboard-section">
-      <h2>Your Clients</h2>
-      <ul id="therapistClients" class="patient-list">
-        <!-- Active clients will be dynamically populated here -->
-      </ul>
+        <h2>Your Active Clients</h2>
+        <ul id="therapistClients"></ul>
     </div>
 
     <div class="dashboard-section">
-      <h2>Incoming Requests</h2>
-      <ul id="incomingClients" class="patient-list">
-        <!-- Pending client requests will be dynamically populated here -->
-      </ul>
+        <h2>Incoming Client Requests</h2>
+        <ul id="incomingClients"></ul>
     </div>
 
-    <!-- Firebase and App Scripts -->
     <script type="module" src="../../JS/Therapist/tList.js"></script>
-  </body>
+</body>
 </html>

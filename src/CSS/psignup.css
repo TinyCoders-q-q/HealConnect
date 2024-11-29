@@ -1,0 +1,137 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+.main{
+    width:100%;
+    background: #9CBBFC;
+    /* background-position: center;
+    background-size: cover; */
+    height: 10vh;
+}
+.nav{
+    height: 1200px;
+    height: 75px;
+    margin: auto;
+}
+.icon{
+    width: 200px;
+    float: left;
+    height: 70px;
+}
+.logo{
+    color:#4840A3;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 25px;
+    float: left;
+    padding-left: 10px;
+    padding-top: 20px;
+}
+.menu{
+    width: 400px;
+    float: left;
+    height: 70px;
+}
+ul{
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ul li{
+    list-style: none;
+    margin-left: 62px;
+    margin-top: 35px;
+    font-size: 16px;
+}
+.menu ul li a{
+    text-decoration: none;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    transition: 0.4s ease-in-out;
+}
+ul li a:hover{
+    color:#4840A3;
+}
+.connect{
+    width: 330px;
+    float: left;
+    margin-left: 270px;
+}
+.btn{
+    width: 100px;
+    height: 30px;
+    background-color: #4840A3;
+    /* border: 1px solid white; */
+    color: white;
+    margin-top: 27px;
+    border-radius: 10px;
+    font-size: 15px;
+}
+.btn:focus{
+    outline: none;
+}
+.wrapper{
+    width: 500px;
+    background:linear-gradient(127deg,#D8EFF7, #9CBBFC, #4840A3) ;
+    margin-top: 50px;
+    border-radius: 20px;
+    height: 450px;  
+    align-items: center;
+    justify-content: center;
+}
+.wrapper h2{
+    font-size: 30px;
+    text-align: center;
+    padding-top: 20px;
+}
+.wrapper .input-box{
+    width: 100%;
+    height: 50px;
+    margin: 20px;
+    justify-content: center;
+    padding:0px 10px;
+    margin-left:60px;
+}
+.input-box input{
+    width: 70%;
+    height: 50px;
+    background: transparent;
+    border:none;
+    outline:none;
+    border: 2px solid #4840A3;
+    border-radius: 40px;
+    padding: 10px;
+    margin: 10px;
+}
+.input-box input::placeholder{
+    color:rgb(0, 0, 0);
+}
+.input-box h5{
+    padding-top: 10px;
+    margin-left: 95px;
+    font-size: 15px;
+}
+.wrapper a{
+    color: rgb(0, 165, 0);
+}
+.wrapper .btn{
+    width: 70%;
+    height: 45px;
+    background: #4840A3;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0,0,0, .1);
+    cursor:pointer;
+    font-size: 16px;
+    color:#ffffff;
+    margin-left:10px;
+}
+.wrapper .btn:hover{
+    color: #ffffff;
+    background: #002a85;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}

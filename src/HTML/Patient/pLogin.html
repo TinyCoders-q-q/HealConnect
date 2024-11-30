@@ -4,47 +4,67 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patient Login</title>
-    <link rel="stylesheet" href="/src/CSS/pLogin.css">
+    <link rel="stylesheet" href="/src/CSS/pLogin.css" />
   </head>
   <body>
     <div class="main">
       <div class="nav">
-          <div class="icon">
-              <h2 class="logo">HealConnect</h2>
-          </div>
-          <div class="menu">
-              <ul>
-                  <li><a href="/src/HTML/index.html">home</a></li>
-                  <li><a href="#heading">about us</a></li>
-                  <li><a href="">contact</a></li>
-              </ul>
-          </div>
-          <!-- <div class="connect">
+        <div class="icon">
+          <h2 class="logo">HealConnect</h2>
+        </div>
+        <div class="menu">
+          <ul>
+            <li><a href="/src/HTML/index.html">home</a></li>
+            <li><a href="#heading">about us</a></li>
+            <li><a href="">contact</a></li>
+          </ul>
+        </div>
+        <!-- <div class="connect">
               <a href="#">
                   <button class="btn" onclick="location.href='login1.html'">connect</button>
               </a>
           </div> -->
       </div>
-     </div>
+    </div>
     <div class="wrapper">
       <h2>Login form</h2>
       <form id="loginForm">
         <div class="input-box">
           <label for="emailAdress"></label>
-          <input type="email" id="emailaddress" placeholder="Email address" required />
+          <input
+            type="email"
+            id="emailaddress"
+            placeholder="Email address"
+            required
+          />
         </div>
         <div class="input-box">
           <label for="password"></label>
-          <input type="password" id="password" placeholder="Password" required />
+          <input
+            type="password"
+            id="password"
+            placeholder="Password"
+            required
+          />
         </div>
         <div class="input-box">
           <button type="submit" class="btn">Login</button>
         </div>
         <div class="input-box">
-          <h5>Dont have an account?<a href="/src/HTML/Patient/pSignup.html">sign up</a></h5>
+          <h5>
+            Dont have an account?<a href="/src/HTML/Patient/pSignup.html"
+              >sign up</a
+            >
+          </h5>
         </div>
         <div class="input-box">
-          <button type="submit" class="btnn">stay anonymous</button>
+          <button
+            type="submit"
+            class="btnn"
+            onclick="location.href='anonymous.html'"
+          >
+            stay anonymous
+          </button>
         </div>
         <div id="errorMessage" style="display: none"></div>
       </form>
@@ -52,4 +72,3 @@
     <script type="module" src="../../JS/Patient/pLogin.js"></script>
   </body>
 </html>
-

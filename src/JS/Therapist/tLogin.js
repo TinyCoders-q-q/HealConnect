@@ -52,7 +52,7 @@ loginForm.addEventListener("submit", async function (e) {
       ) {
         console.log("Patient Login successful:", user);
         sessionStorage.setItem("fullName", userData.fullName);
-        window.location.replace("help.html");
+        window.location.replace("tlist.html");
       } else {
         throw new Error(
           "Invalid account type. Please use the patient login page or Account Not Verified."
